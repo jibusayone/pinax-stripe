@@ -46,9 +46,9 @@ def _create_without_account(user, card=None, plan=settings.PINAX_STRIPE_DEFAULT_
         trial_end=trial_end
     )
     cus, created = models.Customer.objects.get_or_create(
-        user=user,
+        stripe_id=stripe_customer["id"],
         defaults={
-            "stripe_id": stripe_customer["id"]
+            "user": user
         }
     )
     if not created:
