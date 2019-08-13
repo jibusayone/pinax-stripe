@@ -52,7 +52,7 @@ def _create_without_account(user, card=None, plan=settings.PINAX_STRIPE_DEFAULT_
         }
     )
     if not created:
-        cus.stripe_id = stripe_customer["id"]  # sync_customer will call cus.save()
+        cus.user = user  # sync_customer will call cus.save()
     sync_customer(cus, stripe_customer)
     if plan and charge_immediately:
         invoices.create_and_pay(cus)
